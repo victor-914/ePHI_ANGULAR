@@ -1,4 +1,7 @@
-<main>
-  <app-bio> </app-bio>
-  <app-record> </app-record>
+<main  class="homeContainer">
+  <div [ngClass]="isOpen ? 'open' : 'close'" class="cont">
+    <app-bio> </app-bio>
+    <app-record> </app-record>
+  </div>
 </main>
+

@@ -8,12 +8,19 @@ import {
   provideHttpClient,
   withFetch,
 } from '@angular/common/http';
+import { StoreModule, provideState, provideStore } from '@ngrx/store';
+import { menuReducer } from '../store/menu/menu.reducers';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(withFetch()),
-    importProvidersFrom(HttpClientModule),
+    importProvidersFrom(
+      HttpClientModule,
+    ),
     provideClientHydration(),
     provideAnimationsAsync(),
+    provideStore(),
+    provideState({ name: 'isOpen', reducer: menuReducer }),
   ],
 };

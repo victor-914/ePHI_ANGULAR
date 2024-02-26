@@ -21,16 +21,25 @@
 
     <li id="menu" (click)="toggleMenu()" class="list-item" mat-raised-button>
       <mat-icon
+        *ngIf="!isOpen"
         aria-hidden="false"
         aria-label="Example home icon"
         fontIcon="menu"
       ></mat-icon>
+
+      <mat-icon
+        *ngIf="isOpen"
+        aria-hidden="false"
+        aria-label="Example home icon"
+        fontIcon="disabled_by_default"
+      >
+      </mat-icon>
     </li>
   </ul>
 </mat-nav-list>
 
-<div class="mainMenu">
-  <ul class="mobileMenu" *ngIf="isMenuOpen">
+<!-- <div class="mainMenu">
+  <ul class="mobileMenu" *ngIf="isOpen">
     <li
       class=""
       [routerLinkActiveOptions]="{ exact: true }"
@@ -50,6 +59,6 @@
       Add Record
     </li>
   </ul>
-</div>
+</div> -->
 
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->

@@ -4,6 +4,11 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
+import { MenuModule } from '../store/menu/menu.module';
+import { StoreModule, StoreRootModule } from '@ngrx/store';
+import { menuReducer } from '../store/menu/menu.reducers';
+import { SideMenuComponent } from './components/side-menu/side-menu.component';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -15,7 +20,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
+    HomeComponent,
+    MenuModule,
+    SideMenuComponent,
+    StoreModule,
+    // StoreModule.forRoot({ isOpen: menuReducer })
+    StoreRootModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

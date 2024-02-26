@@ -1,0 +1,33 @@
+.mainMenu {
+  background-color: blue;
+  height: 100vh;
+  top: 0px;
+  transition: all 0.3s;
+  position: fixed;
+  color: #fff;
+  overflow-y: hidden;
+  padding-top: 55px;
+}
+
+.mobileMenu{
+
+}
+
+.perMenu{
+    padding: 4px;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    height: 40px;
+    /* line-height: 3; */
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.show {
+  width: 250px;
+}
+
+.hide {
+  width: 0px;
+}

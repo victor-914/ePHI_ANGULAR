@@ -7,6 +7,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RecordService } from '../services/record-service.service';
+import { Store, StoreFeatureModule } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-add-record',
   standalone: true,
@@ -22,6 +25,7 @@ import { RecordService } from '../services/record-service.service';
   templateUrl: './add-record.component.html',
   styleUrl: './add-record.component.css',
 })
+
 export class AddRecordComponent {
   infoForm = this.fb.group({
     title: ['', Validators.required],
@@ -38,7 +42,20 @@ export class AddRecordComponent {
     testResult: ['', Validators.required],
   });
 
-  constructor(private fb: FormBuilder, private recordService: RecordService) {}
+  isOpen$!: Observable<boolean>;
+  isOpen: any;
+
+  constructor(
+    private fb: FormBuilder,
+    private recordService: RecordService,
+    private store: Store<{ isOpen: boolean }>
+  ) {
+    this.store.select('isOpen').subscribe((isOpen) => {
+      console.log('🚀 ~ NavBarComponent ~ constructor ~ isOpen:', this.isOpen);
+      this.isOpen = isOpen;
+      return (this.isOpen = this.isOpen?.isOpen);
+    });
+  }
 
   boiDataInputs = [
     {
@@ -116,30 +133,27 @@ export class AddRecordComponent {
   ];
 
   submitForm() {
-   if(this.infoForm.value){
+    if (this.infoForm.value) {
+      const newRecord = {
+        title: this.infoForm.value?.title,
+        attendingPhysician: this.infoForm.value?.attendingPhysician,
+        hospitalName: this.infoForm.value?.hospitalName,
+        location: this.infoForm.value?.location,
+        durationOfTreatment: this.infoForm.value?.durationOfTreatment,
+        cost: this.infoForm.value?.cost,
+        medicationName: this.infoForm.value?.medicationName,
+        dosage: this.infoForm.value?.dosage,
+        frequency: this.infoForm.value?.frequency,
+        testName: this.infoForm.value?.testName,
+        testResult: this.infoForm.value?.testResult,
+      };
 
-    const newRecord = {
-      title: this.infoForm.value?.title,
-      attendingPhysician: this.infoForm.value?.attendingPhysician,
-      hospitalName: this.infoForm.value?.hospitalName,
-      location: this.infoForm.value?.location,
-      durationOfTreatment: this.infoForm.value?.durationOfTreatment,
-      cost: this.infoForm.value?.cost,
-      medicationName: this.infoForm.value?.medicationName,
-      dosage: this.infoForm.value?.dosage,
-      frequency: this.infoForm.value?.frequency,
-      testName: this.infoForm.value?.testName,
-      testResult: this.infoForm.value?.testResult,
-    };
-
-    this.recordService.addRecord(newRecord).subscribe((response) => {
-      console.log('Post request successful: ', response);
-      // Handle successful response
-    });
-   }else{
-    alert("fill all inputs")
-   }
-
-
+      this.recordService.addRecord(newRecord).subscribe((response) => {
+        console.log('Post request successful: ', response);
+        // Handle successful response
+      });
+    } else {
+      alert('fill all inputs');
+    }
   }
 }

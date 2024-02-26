@@ -1,0 +1,18 @@
+.homeContainer {
+  overflow-x: hidden;
+}
+
+.cont {
+  width: 100%;
+  height: auto;
+  transition: all 0.3s;
+
+}
+
+.open {
+  transform: translateX(250px);
+}
+
+.close {
+  transform: translateX(0px);
+}

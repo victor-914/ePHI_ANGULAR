@@ -1,7 +1,21 @@
+.add-container {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 .container {
   width: 90%;
   height: auto;
   margin: auto;
+  transition: all 0.3s;
+}
+
+.open {
+  transform: translateX(250px);
+}
+
+.close {
+  transform: translateX(0px);
 }
 
 .form-container {
@@ -35,30 +49,29 @@
 }
 
 .subInputs-button {
-    padding: 10px;
-    width: 150px;
+  padding: 10px;
+  width: 150px;
 }
 
-.footer-submitButton-container{
-    width: 100%;
-    height: 10vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.footer-submitButton-container {
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-
-@media (min-width:320px) and (max-width:480px) {
-
+@media (min-width: 320px) and (max-width: 480px) {
   .container {
-  width: 90%;}
+    width: 90%;
+  }
 
-  .form-container{
+  .form-container {
     width: 100%;
   }
 
   .subInputs-button {
     padding: 5px;
     width: 100px;
-}
+  }
 }
