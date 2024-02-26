@@ -2,6 +2,7 @@
   background-color: blue;
   height: 100vh;
   top: 0px;
+  width: 0px;
   transition: all 0.3s;
   position: fixed;
   color: #fff;
