@@ -3,10 +3,9 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { MenuService } from '../../services/menu.services';
-import { Store, StoreFeatureModule, StoreModule } from '@ngrx/store';
+import { Store, StoreFeatureModule } from '@ngrx/store';
 import { toggleMenu } from '../../../store/menu/menu.action';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { SideMenuComponent } from '../side-menu/side-menu.component';
 @Component({
   selector: 'app-nav-bar',
@@ -25,24 +24,26 @@ import { SideMenuComponent } from '../side-menu/side-menu.component';
   styleUrl: './nav-bar.component.css',
 })
 export class NavBarComponent implements OnInit {
-  // isMenuOpen:any;
-
   isOpen$!: Observable<boolean>;
   isOpen: any;
+  storeSubscription: Subscription = new Subscription();
 
-  constructor(private store: Store<{ isOpen: boolean }>) {
-    this.store.select('isOpen').subscribe((isOpen) => {
-      console.log('🚀 ~ NavBarComponent ~ constructor ~ isOpen:', this.isOpen);
+  constructor(private store: Store<{ isOpen: boolean }>) {}
+
+  ngOnInit(): void {
+    this.storeSubscription = this.store.select('isOpen').subscribe((isOpen) => {
       this.isOpen = isOpen;
       return (this.isOpen = this.isOpen?.isOpen);
     });
   }
 
-  ngOnInit(): void {}
-
   toggleMenu() {
     this.store.dispatch(toggleMenu());
-    // console.log("🚀 ~ NavBarComponent ~ isOpen$:",this.isOpen$)
-    console.log('Menu is open toggle:', this.isOpen);
+  }
+
+  ngOnDestroy() {
+    if (this.storeSubscription) {
+      this.storeSubscription.unsubscribe();
+    }
   }
 }

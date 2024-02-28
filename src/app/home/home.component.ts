@@ -3,15 +3,14 @@ import { BioComponent } from '../bio/bio.component';
 import { AllergiesComponent } from '../allergies/allergies.component';
 import { RecordComponent } from '../record/record.component';
 import { SideMenuComponent } from '../components/side-menu/side-menu.component';
-import { Observable } from 'rxjs';
-import { Store, StoreFeatureModule } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { CommonModule, NgClass } from '@angular/common';
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     BioComponent,
-    // StoreFeatureModule,
     CommonModule,
     SideMenuComponent,
     NgClass,
@@ -21,23 +20,21 @@ import { CommonModule, NgClass } from '@angular/common';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent{
+export class HomeComponent {
   isOpen$!: Observable<boolean>;
   isOpen: any;
+  storeSubscription: Subscription = new Subscription();
 
-  constructor(private store: Store<{ isOpen: boolean }>) {
-    this.store.select('isOpen').subscribe((isOpen) => {
-      // console.log('🚀 ~ NavBarComponent ~ constructor ~ isOpen:', this.isOpen);
+  constructor(private store: Store<{ isOpen: boolean }>) {}
+
+  ngOnInit(): void {
+    this.storeSubscription = this.store.select('isOpen').subscribe((isOpen) => {
       this.isOpen = isOpen;
       return (this.isOpen = this.isOpen?.isOpen);
     });
   }
 
-  // ngOnInit(): void {}
-
-//   toggleMenu() {
-//     this.store.dispatch(toggleMenu());
-//     // console.log("🚀 ~ NavBarComponent ~ isOpen$:",this.isOpen$)
-//     console.log('Menu is open toggle:', this.isOpen);
-//   }
+  ngOnDestroy(): void {
+    this.storeSubscription && this.storeSubscription.unsubscribe();
+  }
 }

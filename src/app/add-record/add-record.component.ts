@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -7,8 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RecordService } from '../services/record-service.service';
-import { Store, StoreFeatureModule } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-record',
@@ -25,11 +25,9 @@ import { Observable } from 'rxjs';
   templateUrl: './add-record.component.html',
   styleUrl: './add-record.component.css',
 })
-
-export class AddRecordComponent {
+export class AddRecordComponent implements OnInit {
   infoForm = this.fb.group({
     title: ['', Validators.required],
-    // description: ,
     attendingPhysician: ['', Validators.required],
     hospitalName: ['', Validators.required],
     location: ['', Validators.required],
@@ -45,16 +43,25 @@ export class AddRecordComponent {
   isOpen$!: Observable<boolean>;
   isOpen: any;
 
+  storeSubscription: Subscription = new Subscription();
+
   constructor(
     private fb: FormBuilder,
     private recordService: RecordService,
     private store: Store<{ isOpen: boolean }>
-  ) {
-    this.store.select('isOpen').subscribe((isOpen) => {
+  ) {}
+  ngOnInit(): void {
+    this.storeSubscription = this.store.select('isOpen').subscribe((isOpen) => {
       console.log('🚀 ~ NavBarComponent ~ constructor ~ isOpen:', this.isOpen);
       this.isOpen = isOpen;
       return (this.isOpen = this.isOpen?.isOpen);
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.storeSubscription) {
+      this.storeSubscription.unsubscribe();
+    }
   }
 
   boiDataInputs = [
@@ -150,7 +157,6 @@ export class AddRecordComponent {
 
       this.recordService.addRecord(newRecord).subscribe((response) => {
         console.log('Post request successful: ', response);
-        // Handle successful response
       });
     } else {
       alert('fill all inputs');

@@ -16,6 +16,10 @@ export class RecordComponent implements OnInit {
   constructor(private recordService: RecordService) {}
 
   ngOnInit(): void {
-   this.records =  this.recordService.getRecords();
+    this.records = this.recordService.getRecords();
+  }
+
+  ngOnDestroy(): void {
+    this.records = [];
   }
 }

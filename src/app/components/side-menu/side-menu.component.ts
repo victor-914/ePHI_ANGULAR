@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store, StoreFeatureModule } from '@ngrx/store';
-import { Observable, Subscription, observeOn } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { toggleMenu } from '../../../store/menu/menu.action';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
