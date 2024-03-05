@@ -10,13 +10,13 @@
   transition: all 0.3s;
 }
 
-.open {
+/* .open {
   transform: translateX(250px);
 }
 
 .close {
   transform: translateX(0px);
-}
+} */
 
 .form-container {
   width: 70%;

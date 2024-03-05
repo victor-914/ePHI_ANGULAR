@@ -7,6 +7,7 @@
   position: fixed;
   color: #fff;
   overflow-y: hidden;
+  z-index: 2;
   padding-top: 55px;
 }
 
