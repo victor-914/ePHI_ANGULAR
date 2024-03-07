@@ -3,7 +3,7 @@
   height:auto;
   padding-bottom: 10px;
   top: 0px;
-  width: 0px;
+  width: 0%;
   transition: all 0.3s;
   position: fixed;
   color: #fff;
@@ -28,7 +28,7 @@
 }
 
 .show {
-  width: 250px;
+  width: 100%;
 }
 
 .hide {

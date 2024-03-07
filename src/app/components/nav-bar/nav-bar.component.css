@@ -60,12 +60,17 @@
   text-transform: uppercase;
 }
 
+#menu{
+  z-index: 5;
+}
+
 @media (min-width: 320px) and (max-width: 600px) {
   .list-item {
     visibility: hidden;
   }
   #menu {
     visibility: visible;
+
   }
 }
 
