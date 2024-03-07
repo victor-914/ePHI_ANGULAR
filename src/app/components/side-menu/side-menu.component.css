@@ -1,6 +1,7 @@
 .mainMenu {
   background-color: blue;
-  height: 100vh;
+  height:auto;
+  padding-bottom: 10px;
   top: 0px;
   width: 0px;
   transition: all 0.3s;
