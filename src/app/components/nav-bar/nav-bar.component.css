@@ -2,6 +2,8 @@
   width: 100%;
   background-color: blue;
   padding: 20px 0px 20px 0px;
+  position: fixed;
+  top: 0px;
 }
 
 .list-container {
@@ -64,6 +66,9 @@
   z-index: 5;
 }
 
+
+
+
 @media (min-width: 320px) and (max-width: 600px) {
   .list-item {
     visibility: hidden;
@@ -79,3 +84,6 @@
     display: none;
   }
 }
+
+
+
